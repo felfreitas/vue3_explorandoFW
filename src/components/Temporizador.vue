@@ -1,6 +1,6 @@
 <template>
   <div class="is-flex is-align-items-center is-justify-content-space-between">
-    <Cronometro :tempo-em-segundos="tempoEmSegundos" />
+    <Cronometro :tempoEmSegundos="tempoEmSegundos" />
 
     <!-- <button class="button" @click="iniciar" :disabled="cronometroRodando">
       <span class="icon">
@@ -42,7 +42,7 @@ import Cronometro from "./Cronometro.vue";
 import Botao from "./Botao.vue";
 
 export default defineComponent({
-  name: "Temporizador-n",
+  name: "Temporizador-Nome",
   emits: ["aoTemporizadorFinalizado"],
   components: {
     Cronometro,
