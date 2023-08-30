@@ -14,24 +14,29 @@
       </span>
       <span>stop</span>
     </button>
+
+    <Botao acao="play" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Cronometro from "./Cronometro.vue";
+import Botao from "./Botao.vue";
 
 export default defineComponent({
   name: "Temporizador-n",
+  emits: ["aoTemporizadorFinalizado"],
   components: {
     Cronometro,
-  },
+    Botao
+},
   data() {
     // estado incial, na vdd um método que retorna um objeto
     return {
       tempoEmSegundos: 0,
       cronometro: 0,
-      cronometroRodando: false
+      cronometroRodando: false,
     };
   },
 
@@ -46,8 +51,12 @@ export default defineComponent({
       console.log("Iniciou");
     },
     finalizar() {
-        this.cronometroRodando = false;
+      this.cronometroRodando = false;
       clearInterval(this.cronometro);
+      this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos);
+      console.log(this.tempoEmSegundos);
+
+      this.tempoEmSegundos = 0;
     },
   },
 });

@@ -9,6 +9,8 @@
   </main>
 </template>
 
+
+
 <script lang="ts">
 import { defineComponent } from "vue";
 import BarraLateral from "./components/BarraLateral.vue";
