@@ -1,7 +1,7 @@
 <template>
-<button class="button" >
+<button class="button" @click="clicado" :disabled="desabilitado">
       <span class="icon">
-        <i class="fas fa-play"></i>
+        <i :class="icone"></i>
       </span>
       <span>{{ acao }}</span>
     </button>
@@ -13,11 +13,24 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
     name:'Botao-n',
+    emits:['clicado'],
     props:{
+        desabilitado:{
+            type:Boolean
+        },
         acao:{
             type: String,
-            default:'Nome'
+            required:true
 
+        },
+        icone:{
+            type: String,
+            required:true
+        }
+    },
+    methods:{
+        clicado() : void{
+            this.$emit('clicado')
         }
     }
 });
