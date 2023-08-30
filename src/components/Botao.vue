@@ -1,40 +1,37 @@
 <template>
-<button class="button" @click="clicado" :disabled="desabilitado">
-      <span class="icon">
-        <i :class="icone"></i>
-      </span>
-      <span>{{ acao }}</span>
-    </button>
-
+  <button class="button" @click="clicado" :disabled="desabilitado">
+    <span class="icon">
+      <i :class="icone"></i>
+    </span>
+    <span>{{ acao }}</span>
+  </button>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 
 export default defineComponent({
-    name:'Botao-n',
-    emits:['clicado'],
-    props:{
-        desabilitado:{
-            type:Boolean
-        },
-        acao:{
-            type: String,
-            required:true
-
-        },
-        icone:{
-            type: String,
-            required:true
-        }
+  name: "Botao-n",
+  emits: ["clicado"],
+  props: {
+    desabilitado: {
+      type: Boolean,
     },
-    methods:{
-        clicado() : void{
-            this.$emit('clicado')
-        }
-    }
+    acao: {
+      type: String,
+      required: true,
+    },
+    icone: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    clicado(): void {
+      this.$emit("clicado");
+    },
+  },
 });
 </script>
 
-<style>
-</style>
+<style></style>

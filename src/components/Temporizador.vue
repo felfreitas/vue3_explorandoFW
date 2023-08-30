@@ -15,8 +15,24 @@
       <span>stop</span>
     </button> -->
 
-    <Botao @clicado="iniciar" icone="fas fa-play" acao="play" :desabilitado="cronometroRodando" />
-    <Botao @clicado="finalizar" icone="fas fa-stop" acao="stop" :desabilitado="!cronometroRodando" />
+    <Botao
+      @clicado="iniciar"
+      icone="fas fa-play"
+      acao="play"
+      :desabilitado="cronometroRodando"
+    />
+    <Botao
+      @clicado="pausar"
+      icone="fas fa-pause"
+      acao="pausa"
+      :desabilitado="!cronometroRodando"
+    />
+    <Botao
+      @clicado="finalizar"
+      icone="fas fa-stop"
+      acao="stop"
+      :desabilitado="!cronometroRodando"
+    />
   </div>
 </template>
 
@@ -30,26 +46,31 @@ export default defineComponent({
   emits: ["aoTemporizadorFinalizado"],
   components: {
     Cronometro,
-    Botao
-},
+    Botao,
+  },
   data() {
     // estado incial, na vdd um método que retorna um objeto
     return {
       tempoEmSegundos: 0,
       cronometro: 0,
+      tempoPause: 0,
       cronometroRodando: false,
     };
   },
-
   methods: {
     iniciar() {
       //começar a contagem
       this.cronometroRodando = true;
       this.cronometro = setInterval(() => {
         this.tempoEmSegundos++;
-        // console.log(this.tempoEmSegundos);
       }, 1000);
-      console.log("Iniciou");
+    },
+    pausar() {
+      //quando pausar, preciso apenas parar o tempo. Ao apertar o play retomar do tempo que parou
+      this.tempoPause = this.tempoEmSegundos;
+      clearInterval(this.cronometro);
+      this.tempoEmSegundos = this.tempoPause;
+      this.cronometroRodando = false;
     },
     finalizar() {
       this.cronometroRodando = false;
