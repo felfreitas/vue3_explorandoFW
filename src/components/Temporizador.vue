@@ -76,7 +76,6 @@ export default defineComponent({
       this.cronometroRodando = false;
       clearInterval(this.cronometro);
       this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos);
-      console.log(this.tempoEmSegundos);
 
       this.tempoEmSegundos = 0;
     },
