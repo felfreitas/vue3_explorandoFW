@@ -1,9 +1,10 @@
 <template>
-  <main class="columns is-gapless is-multine">
+  <!-- utlizamos os dois pontos paara ir codigo JS, primeiro colocamos a classe que desejamos adicionar e depois o boleano -->
+  <main class="columns is-gapless is-multine" :class="{'modo-escuro': modoEscuroAtivo}"> 
     <div class="column is-one-quarter">
-      <BarraLateral />
+      <BarraLateral @transformaTema="mudaTema" />
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter conteudo">
       <Formulario @infoTarefa="salvarTarefa"/>
       <div class="lista">
         
@@ -29,7 +30,8 @@ export default defineComponent({
   components: { BarraLateral, Formulario, Tarefa, Box },
   data() {
     return {
-      tarefas: [] as ITarefa[]
+      tarefas: [] as ITarefa[],
+      modoEscuroAtivo: false
     }
   },
   computed:{
@@ -43,6 +45,10 @@ export default defineComponent({
       
       this.tarefas.push(tarefa);
       
+    },
+    mudaTema(modoEscuroAtivo : boolean) :void {
+     this.modoEscuroAtivo = modoEscuroAtivo;
+      
     }
   }
 });
@@ -51,5 +57,17 @@ export default defineComponent({
 <style>
 .lista {
   padding: 1.25rem;
+}
+
+main{
+  --bg-primario:#fff;
+  --texto-primario:#000;
+}
+main.modo-escuro{
+  --bg-primario:#2b2d42;
+  --texto-primario:#ddd;
+}
+.conteudo{
+  background-color: var(--bg-primario);
 }
 </style>
