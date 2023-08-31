@@ -27,7 +27,7 @@ import Temporizador from "./Temporizador.vue";
 
 export default defineComponent({
   name: "Formulario-Nome",
-  emits: ["infoFormulario"],
+  emits: ["infoTarefa"],
 
   components: {
     Temporizador,
@@ -40,18 +40,12 @@ export default defineComponent({
   },
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
-      console.log(
-        "tempo foi: " +
-          tempoDecorrido +
-          " Descrição da tarefa: " +
-          this.descricao +
-          " Data inicial: " +
-          this.dataInicial
-      );
-      var x = [tempoDecorrido,this.descricao]
-      this.$emit('infoFormulario', x);
+      this.$emit("infoTarefa", {
+        duracaoEmSegundo: tempoDecorrido,
+        descricao: this.descricao,
+      });
       this.descricao = "";
-    }
+    },
   },
 });
 </script>
