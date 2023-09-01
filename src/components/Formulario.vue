@@ -46,6 +46,7 @@ export default defineComponent({
       this.$emit("infoTarefa", {
         duracaoEmSegundo: tempoDecorrido,
         descricao: this.descricao,
+        projeto: this.projetos.find(proj => proj.id == this.idProjeto) //buscando o projeto cujo id seja igual
       });
       this.descricao = "";
     },
