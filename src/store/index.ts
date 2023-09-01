@@ -27,7 +27,11 @@ export const store = createStore<Estado>({
             } as IProjeto;
 
             state.projetos.push(projeto);
+        },
+        'REMOVE_PROJETO'(state, idDoProjeto: any){
+            return 0;
         }
+
     }
 })
 
