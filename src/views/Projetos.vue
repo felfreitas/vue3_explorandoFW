@@ -1,79 +1,21 @@
 <template>
-    <section class="projetos">
+    <div class="projetos">
         <h1 class="title">Projetos</h1>
-
-        <router-link to="/projetos/novo" class="button">
-            <span class="icon is-small">
-                <i class="fas fa-plus"></i>
-            </span>
-            <span>Novo projeto</span>
-        </router-link>
-
-        <Box v-if="projetosVazio" class="cssStyle"> Você não possui Tarefas cadastradas <span
-                class="has-text-weight-bold">:(</span>
-        </Box>
-        <table class="table is-fullwidth" v-if="!projetosVazio">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(projeto, index) in projetos" :key="index">
-                    <td>{{ projeto.id }}</td>
-                    <td>{{ projeto.nome }}</td>
-                    <td>
-                        <router-link :to="`/projetos/${projeto.id}`" class="button">
-                            <span class="icon is-small">
-                                <i class="fas fa-pencil-alt"></i>
-                            </span>
-                        </router-link>
-                    </td>
-
-                </tr>
-            </tbody>
-        </table>
-    </section>
+        <RouterView></RouterView>
+    </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from 'vue';
-import Box from '@/components/Box.vue';
-import { useStore } from '@/store';
+<script>
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'Projetos-Nome',
-    data() {
-        return {
-            cssStyle: {
-                background: '#faf0ca',
-            }
-        };
-    },
-    computed: {
-        projetosVazio(): boolean {
-            return this.projetos.length === 0;
-        }
-    },
-    setup() {
-        const store = useStore();
-        return {
-            projetos: computed(() => store.state.projetos)
-        }
-    },
-    components: { Box }
+    name:'Projetos-Nome'
+
 })
 </script>
-
 
 <style scoped>
 .projetos {
     padding: 1.25rem;
-}
-
-.cssStyle {
-    margin-top: 1.25rem;
 }
 </style>
