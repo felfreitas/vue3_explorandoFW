@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(projeto, index) in projetos" :key="index">
+                <tr v-for="projeto in projetos" :key="projeto.id">
                     <td>{{ projeto.id }}</td>
                     <td>{{ projeto.nome }}</td>
                     <td>
@@ -29,11 +29,11 @@
                                 <i class="fas fa-pencil-alt"></i>
                             </span>
                         </router-link>
-                        <router-link class="button ml-2 is-danger" @click="excluir(projeto.id)">
+                        <button class="button ml-2 is-danger" @click="excluir(projeto.id)">
                             <span class="icon is-small">
                                 <i class="fas  fa-trash"></i>
                             </span>
-                        </router-link>
+                        </button>
                     </td>
 
                 </tr>
@@ -46,7 +46,7 @@
 import { computed, defineComponent } from 'vue';
 import Box from '@/components/Box.vue';
 import { useStore } from '@/store';
-import {EXCLUIR_PROJETO} from '@/store/tipo-mutacoes'
+import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes'
 
 export default defineComponent({
     name: 'ListaProjetos-Nome',

@@ -1,6 +1,6 @@
 <template>
     <section>
-        <h1 class="title">Projetos</h1>
+        <!-- <h1 class="title">Projetos</h1> -->
         <form @submit.prevent="salvar">
             <div class="field">
                 <label for="nomeDoProjeto" class="label">
@@ -31,7 +31,7 @@ export default defineComponent({
     },
     mounted() {
         if (this.id) {
-            const projeto = this.store.state.projetos.find(proj => proj.id === this.id)
+            const projeto = this.store.state.projetos.find(proj => proj.id === this.id);
             this.nomeDoProjeto = projeto?.nome || '';
         }
     },
@@ -52,7 +52,9 @@ export default defineComponent({
                 this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
             }
             this.nomeDoProjeto = '';
-            this.$router.push('/projetos');
+           console.log(this.$router.push('/projetos'));
+            // this.$router.push('/projetos');
+            
         }
     },
     setup() {
