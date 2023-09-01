@@ -1,7 +1,7 @@
 import IProjeto from "@/interfaces/IProjeto";
-import { createStore, Store } from "vuex";
-import {Md5} from 'ts-md5';
-import {InjectionKey} from "vue";
+import { createStore, Store, useStore as vuexUseStore } from "vuex";
+import { Md5 } from 'ts-md5';
+import { InjectionKey } from "vue";
 
 interface Estado {
     projetos: IProjeto[]
@@ -15,19 +15,23 @@ export const key: InjectionKey<Store<Estado>> = Symbol()
 //constante para pegar
 export const store = createStore<Estado>({
     state: {
-        projetos: [
-            {
-                id:  Md5.hashAsciiStr('1') ,
-                nome: 'Javinha'
-            },
-            {
-                id:  Md5.hashAsciiStr('2') ,
-                nome: 'TypeScript'
-            },
-            {
-                id:  Md5.hashAsciiStr('3') ,
-                nome: 'Csharpe'
-            }
-        ]
+        projetos: []
+    },
+    mutations: {
+        //o mutations que controla o estado
+        'ADCIONA_PROJETO'(state, nomeDoProjeto: string) {
+            const projeto = {
+                id: new Date().toISOString(),
+                nome: nomeDoProjeto
+
+            } as IProjeto;
+
+            state.projetos.push(projeto);
+        }
     }
 })
+
+
+export function useStore(): Store<Estado> {
+    return vuexUseStore(key)
+}

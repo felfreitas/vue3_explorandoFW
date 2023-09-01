@@ -37,6 +37,7 @@
 import { defineComponent } from 'vue';
 import IProjeto from '../interfaces/IProjeto';
 import Box from '@/components/Box.vue';
+import { useStore } from '@/store';
 
 export default defineComponent({
     name: 'Projetos-Nome',
@@ -55,13 +56,19 @@ export default defineComponent({
     },
     methods: {
         salvar() {
-            const projeto: IProjeto = {
-                id: new Date().toISOString(),
-                nome: this.nomeDoProjeto
-            };
-            console.log(projeto);
-            this.projetos.push(projeto);
-            this.nomeDoProjeto = '';
+            // const projeto: IProjeto = {
+            //     id: new Date().toISOString(),
+            //     nome: this.nomeDoProjeto
+            // };
+            // console.log(projeto);
+            // this.projetos.push(projeto);
+            // this.nomeDoProjeto = '';
+        }
+    },
+    setup(){
+        const store = useStore();
+        return {
+            store
         }
     },
     components: { Box }
