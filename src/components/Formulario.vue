@@ -4,6 +4,15 @@
       <div class="column is-5" role="form" aria-label="Formulario para criação de uma nova tarefa">
         <input type="text" class="input" placeholder="Qual tarefa você deseja iniciar?" v-model="descricao" />
       </div>
+      <div class="column is-3">
+        <div class="select">
+          <select v-model="idProjeto">
+            <option value="">Selecione o projeto</option>
+            <option :value="projeto.id" v-for="projeto in projetos" :key="projeto.id">{{ projeto.nome }}</option>
+
+          </select>
+        </div>
+      </div>
 
       <div class="column">
         <Temporizador @aoTemporizadorFinalizado="finalizarTarefa" />
@@ -27,8 +36,9 @@ export default defineComponent({
   },
   data() {
     return {
-      descricao: ""
+      descricao: "",
       // dataInicial: new Date(),
+      idProjeto: ''
     };
   },
   methods: {
