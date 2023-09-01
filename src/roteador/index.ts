@@ -18,9 +18,10 @@ const rotas: RouteRecordRaw[] = [{
     component: Formulario
 },
 {
-    path: '/projetos/:id',
+    path: '/projetos/:id', //segmente de url dinamico pois possui ":id"
     name: 'Editar projeto',
-    component: Formulario
+    component: Formulario,
+    props: true //significa que vai pegar o id e injetar na visualização como se fosse uma propriedade do componente
 }]
 
 const roteador = createRouter({

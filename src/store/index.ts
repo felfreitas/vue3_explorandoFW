@@ -1,6 +1,6 @@
 import IProjeto from "@/interfaces/IProjeto";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { Md5 } from 'ts-md5';
+// import { Md5 } from 'ts-md5';
 import { InjectionKey } from "vue";
 
 interface Estado {
@@ -27,9 +27,11 @@ export const store = createStore<Estado>({
             } as IProjeto;
 
             state.projetos.push(projeto);
-        },
-        'REMOVE_PROJETO'(state, idDoProjeto: any){
-            return 0;
+        }
+        ,
+        'ALTERA_PROJETO'(state, projeto: IProjeto){
+            const index = state.projetos.findIndex(proj=> proj.id == projeto.id)
+            state.projetos[index] = projeto
         }
 
     }
