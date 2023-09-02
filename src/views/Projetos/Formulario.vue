@@ -10,8 +10,11 @@
             </div>
             <div class="field">
                 <button class="button" type="submit">Salvar</button>
-            </div>
 
+                <router-link to="/projetos" class="button" alt="Voltar para página de projetos">
+                    <i class="fas fa-undo-alt" ></i>
+                </router-link>
+            </div>
         </form>
 
     </section>
@@ -20,7 +23,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from '@/store';
-import { ALTERA_PROJETO, ADICIONA_PROJETO } from '@/store/tipo-mutacoes'
+import { ALTERA_PROJETO, ADICIONA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes'
+import { TipoNotificacao } from '@/interfaces/INotificacao';
 
 export default defineComponent({
     name: 'FormularioProjeto-Nome',
@@ -52,9 +56,16 @@ export default defineComponent({
                 this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
             }
             this.nomeDoProjeto = '';
-           console.log(this.$router.push('/projetos'));
+
+            this.store.commit(NOTIFICAR, {
+                titulo: 'Novo projeto foi salvo!',
+                texto:'Prontinho ;) Seu projeto está disponível',
+                tipo: TipoNotificacao.SUCESSO
+            })
+
+            console.log(this.$router.push('/projetos'));
             // this.$router.push('/projetos');
-            
+
         }
     },
     setup() {
@@ -65,5 +76,11 @@ export default defineComponent({
     }
 })
 </script>
+
+<style>
+.label {
+    color: var(--texto-primario);
+}
+</style>
 
 

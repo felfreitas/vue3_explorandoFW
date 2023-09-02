@@ -5,9 +5,10 @@
       <BarraLateral @transformaTema="mudaTema" />
     </div>
     <div class="column is-three-quarter conteudo">
+      <Notificacoes />
       <!-- Aaui vai a view correspondente -->
       <RouterView></RouterView>
-     
+
     </div>
   </main>
 </template>
@@ -15,16 +16,18 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import BarraLateral from "./components/BarraLateral.vue";
+import Notificacoes from "./components/Notificacoes.vue";
 export default defineComponent({
   name: "App",
-  components: { BarraLateral },
+  components: { BarraLateral, Notificacoes },
   data() {
     return {
       modoEscuroAtivo: false,
     };
   },
   methods: {
-   
+    
+
     mudaTema(modoEscuroAtivo: boolean): void {
       this.modoEscuroAtivo = modoEscuroAtivo;
     },
