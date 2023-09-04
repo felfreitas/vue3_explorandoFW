@@ -12,7 +12,7 @@
                 <button class="button" type="submit">Salvar</button>
 
                 <router-link to="/projetos" class="button" alt="Voltar para página de projetos">
-                    <i class="fas fa-undo-alt" ></i>
+                    <i class="fas fa-undo-alt"></i>
                 </router-link>
             </div>
         </form>
@@ -25,6 +25,7 @@ import { defineComponent } from 'vue';
 import { useStore } from '@/store';
 import { ALTERA_PROJETO, ADICIONA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes'
 import { TipoNotificacao } from '@/interfaces/INotificacao';
+import {notificacaoMixin} from '@/mixins/notificar'
 
 export default defineComponent({
     name: 'FormularioProjeto-Nome',
@@ -33,6 +34,7 @@ export default defineComponent({
             type: String
         }
     },
+    mixins: [notificacaoMixin],
     mounted() {
         if (this.id) {
             const projeto = this.store.state.projetos.find(proj => proj.id === this.id);
@@ -56,15 +58,12 @@ export default defineComponent({
                 this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
             }
             this.nomeDoProjeto = '';
+            
+            this.notificar(TipoNotificacao.SUCESSO, 'Excelente!', 'O projeto foi cadastrado com sucesso!');
 
-            this.store.commit(NOTIFICAR, {
-                titulo: 'Novo projeto foi salvo!',
-                texto:'Prontinho ;) Seu projeto está disponível',
-                tipo: TipoNotificacao.SUCESSO
-            })
 
-            console.log(this.$router.push('/projetos'));
-            // this.$router.push('/projetos');
+            // console.log(this.$router.push('/projetos'));
+            this.$router.push('/projetos');
 
         }
     },
