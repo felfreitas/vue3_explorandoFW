@@ -35,7 +35,7 @@ export default defineComponent({
 
     methods: {
         salvarTarefa(tarefa: ITarefa): void {
-            console.log(tarefa);
+            // console.log(tarefa);
             if (!tarefa?.projeto) {
                 //chamando um mixin
                  this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(','É necessário escolher um projeto!') ;
