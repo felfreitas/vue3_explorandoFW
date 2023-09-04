@@ -17,6 +17,6 @@ export default () : Notificador =>{
     }
 
     return {
-        notifcar
+        notificar
     }
 }
