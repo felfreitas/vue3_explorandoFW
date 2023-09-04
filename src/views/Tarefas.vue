@@ -13,6 +13,9 @@ import Formulario from "../components/Formulario.vue";
 import Tarefa from "../components/Tarefa.vue";
 import ITarefa from "../interfaces/ITarefa";
 import Box from "../components/Box.vue";
+import { useStore } from "@/store";
+import { NOTIFICAR } from "@/store/tipo-mutacoes";
+import { TipoNotificacao } from "@/interfaces/INotificacao";
 
 export default defineComponent({
     name: "App",
@@ -29,9 +32,29 @@ export default defineComponent({
     },
     methods: {
         salvarTarefa(tarefa: ITarefa): void {
-            this.tarefas.push(tarefa);
+            console.log(tarefa);
+            if (tarefa?.projeto) {
+
+                this.tarefas.push(tarefa);
+            }
+            else {
+                this.store.commit(NOTIFICAR, {
+                titulo: 'Atenção!',
+                texto:'Ops :( ... É necessário escolher um projeto!',
+                tipo: TipoNotificacao.ATENCAO
+            })
+                console.log("disparar msg");
+            }
+
         }
     },
+    setup() {
+        const store = useStore();
+
+        return {
+            store
+        }
+    }
 });
 </script>
   

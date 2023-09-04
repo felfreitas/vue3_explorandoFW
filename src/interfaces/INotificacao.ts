@@ -1,9 +1,9 @@
-export enum TipoNotificacao{
+export enum TipoNotificacao {
     SUCESSO, FALHA, ATENCAO
 }
 
 
-export interface INotificacao{
+export interface INotificacao {
     titulo: string,
     texto: string,
     tipo: TipoNotificacao,
