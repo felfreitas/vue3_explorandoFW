@@ -3,9 +3,9 @@ import ITarefa from "@/interfaces/ITarefa";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 // import { Md5 } from 'ts-md5';
 import { InjectionKey } from "vue";
-import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO, NOTIFICAR, DEFINIR_PROJETO, DEFINIR_TAREFAS } from "./tipo-mutacoes";
+import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO, NOTIFICAR, DEFINIR_PROJETO, DEFINIR_TAREFAS, ADICIONA_TAREFA, } from "./tipo-mutacoes";
 import { INotificacao } from "@/interfaces/INotificacao";
-import { OBTER_PROJETOS, CADASTRAR_PROJETO, ALTERAR_PROJETO,REMOVER_PROJETO, OBTER_TAREFAS } from "./tipo-acoes";
+import { OBTER_PROJETOS, CADASTRAR_PROJETO, ALTERAR_PROJETO,REMOVER_PROJETO, OBTER_TAREFAS,CADASTRAR_TAREFA } from "./tipo-acoes";
 
 import http from "@/http";
 
@@ -54,6 +54,9 @@ export const store = createStore<Estado>({
         [DEFINIR_TAREFAS](state, tarefas: ITarefa[]) {
             //recebe todos os projetos menos o que possui o id para deletar
             state.tarefas = tarefas;
+        }, [ADICIONA_TAREFA](state, tarefa: ITarefa) {
+           
+            state.tarefas.push(tarefa);
         },
         [NOTIFICAR](state, novaNotificacao: INotificacao) {
             novaNotificacao.id = new Date().getTime();
@@ -92,6 +95,11 @@ export const store = createStore<Estado>({
         [OBTER_TAREFAS]({ commit }) {
             http.get('tarefas')
                 .then(resposta => commit(DEFINIR_TAREFAS, resposta.data))
+        } ,
+        [CADASTRAR_TAREFA]({commit}, tarefa: ITarefa) {
+            return http.post('tarefas/', tarefa)
+                .then(resposta=>commit(ADICIONA_TAREFA, resposta.data))
+
         }
     }
 })

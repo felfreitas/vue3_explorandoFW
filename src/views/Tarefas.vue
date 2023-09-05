@@ -16,7 +16,7 @@ import Box from "../components/Box.vue";
 import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import { notificacaoMixin } from "@/mixins/notificar";
-import { OBTER_TAREFAS } from "@/store/tipo-acoes";
+import { OBTER_TAREFAS, CADASTRAR_TAREFA,OBTER_PROJETOS } from "@/store/tipo-acoes";
 
 export default defineComponent({
     name: "App",
@@ -35,19 +35,19 @@ export default defineComponent({
     mixins: [notificacaoMixin],
 
     methods: {
-        // salvarTarefa(tarefa: ITarefa): void {
-        //     // console.log(tarefa);
-        //     if (!tarefa?.projeto) {
-        //         //chamando um mixin
-        //         this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(', 'É necessário escolher um projeto!');
-        //         return;
-        //     }
-        //     this.tarefas.push(tarefa);
-        //     // this.store.dispatch(CADASTRAR_TAREFA)
-        // }
+        salvarTarefa(tarefa: ITarefa): void {
+            // console.log(tarefa);
+            if (!tarefa?.projeto) {
+                //chamando um mixin
+                this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(', 'É necessário escolher um projeto!');
+                return;
+            }
+            this.store.dispatch(CADASTRAR_TAREFA, tarefa)
+        }
     },
     setup() {
         const store = useStore();
+        store.dispatch(OBTER_PROJETOS)
         store.dispatch(OBTER_TAREFAS)
 
         return {
