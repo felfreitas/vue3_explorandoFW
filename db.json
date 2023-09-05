@@ -1,8 +1,8 @@
 {
   "projetos": [
     {
-      "nome": "Estudar React.j",
-      "id": 3
+      "id": 3,
+      "nome": "Estudar React.j 45"
     },
     {
       "nome": "estudar ali",
@@ -19,6 +19,17 @@
     {
       "nome": "teste de gravação",
       "id": 7
+    }
+  ],
+  "tarefas": [
+    {
+      "id": 1,
+      "duracaoEmSegundos": 125,
+      "descricao": "Teste",
+      "projeto": {
+        "id": 3,
+        "nome": "Estudar React.j 45"
+      }
     }
   ]
 }
