@@ -48,6 +48,15 @@
         "id": 5
       },
       "id": 3
+    },
+    {
+      "duracaoEmSegundo": 1,
+      "descricao": "Estudos pessoaiis",
+      "projeto": {
+        "nome": "não deve ir",
+        "id": 6
+      },
+      "id": 4
     }
   ]
 }

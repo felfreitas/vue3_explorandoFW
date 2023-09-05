@@ -55,7 +55,7 @@ export default defineComponent({
     //setup serve para buscar os dados da Store. Passando uma key e retornando computed!
     const store = useStore(key)
     return {
-      projetos: computed(() => store.state.projetos)
+      projetos: computed(() => store.state.projeto.projetos)
     }
   }
 });
