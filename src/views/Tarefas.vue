@@ -34,11 +34,10 @@
 </template>
   
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import Formulario from "../components/Formulario.vue";
 import Tarefa from "../components/Tarefa.vue";
 import ITarefa from "../interfaces/ITarefa";
-import Box from "../components/Box.vue";
 import { useStore } from "@/store";
 import { TipoNotificacao } from "@/interfaces/INotificacao";
 import { notificacaoMixin } from "@/mixins/notificar";
@@ -47,54 +46,53 @@ import { OBTER_TAREFAS, CADASTRAR_TAREFA, OBTER_PROJETOS, ALTERAR_TAREFA } from 
 export default defineComponent({
     name: "App",
     components: { Formulario, Tarefa
-        // , 
-        // Box
+     
      },
-    data() {
-        return {
-            tarefaSelecionada: null as ITarefa | null
-        };
-    },
-    // computed: {
-    //     listaEstaVazia(): boolean {
-    //         console.log(this.tarefas.length ==0);
-            
-    //         return  true;
-    //         // return this.tarefas.length === 0;
-
-    //     },
-    // },
+   
     mixins: [notificacaoMixin],
 
     methods: {
-        salvarTarefa(tarefa: ITarefa): void {
+         salvarTarefa(tarefa: ITarefa): void {
             // console.log(tarefa);
             if (!tarefa?.projeto) {
                 //chamando um mixin
-                this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(', 'É necessário escolher um projeto!');
+               this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(', 'É necessário escolher um projeto!');
                 return;
             }
-            this.store.dispatch(CADASTRAR_TAREFA, tarefa)
-        },
-        selecionarTarefa(tarefa: ITarefa) {
-            this.tarefaSelecionada = tarefa;
-        },
-        fecharModal() {
-            this.tarefaSelecionada = null;
-        },
-        editandoTarefa(){
-            this.store.dispatch(ALTERAR_TAREFA, this.tarefaSelecionada)
-                .then(()=>this.fecharModal())
+           this.store.dispatch(CADASTRAR_TAREFA, tarefa)
         }
+
     },
     setup() {
         const store = useStore();
+        const tarefaSelecionada = ref(null as ITarefa | null);
+        
         store.dispatch(OBTER_PROJETOS)
         store.dispatch(OBTER_TAREFAS)
 
+        // metodos
+        
+        
+      const selecionarTarefa = (tarefa: ITarefa) => {
+            tarefaSelecionada.value = tarefa;
+        }
+        
+        const fecharModal= () => {
+            tarefaSelecionada.value = null;
+        }
+        
+       const  editandoTarefa = ()=>{
+            store.dispatch(ALTERAR_TAREFA, tarefaSelecionada.value)
+                .then(()=>fecharModal())
+        }
+
         return {
             tarefas: computed(() => store.state.tarefa.tarefas),
-            store
+            store,
+            tarefaSelecionada,
+            selecionarTarefa,
+            fecharModal,
+            editandoTarefa
         }
     }
 });
