@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import Temporizador from "./Temporizador.vue";
 import { useStore } from "vuex";
 import { key } from "@/store";
@@ -34,28 +34,30 @@ export default defineComponent({
   components: {
     Temporizador,
   },
-  data() {
-    return {
-      descricao: "",
-      // dataInicial: new Date(),
-      idProjeto: ''
-    };
-  },
-  methods: {
-    finalizarTarefa(tempoDecorrido: number): void {
-      this.$emit("infoTarefa", {
-        duracaoEmSegundo: tempoDecorrido,
-        descricao: this.descricao,
-        projeto: this.projetos.find(proj => proj.id == this.idProjeto) //buscando o projeto cujo id seja igual
-      });
-      this.descricao = "";
-    },
-  },
-  setup() {
+  setup(props, {emit}) {
+
     //setup serve para buscar os dados da Store. Passando uma key e retornando computed!
-    const store = useStore(key)
+    const store = useStore(key);        
+
+    const descricao = ref("")
+    const idProjeto = ref("")
+    const projetos = computed(() => store.state.projeto.projetos);
+
+    const finalizarTarefa = (tempoDecorrido: number): void => {
+      emit("infoTarefa", {
+        duracaoEmSegundo: tempoDecorrido,
+        descricao: descricao.value,
+        projeto: projetos.value.find(proj => proj.id == idProjeto.value) //buscando o projeto cujo id seja igual
+      });
+      descricao.value = "";
+    }
+
     return {
-      projetos: computed(() => store.state.projeto.projetos)
+      projetos,
+      //no ecmascript novo não precisa falar a variavel com o mesmo nome. No caso ficaria idProjeto: idProjeto
+      idProjeto,
+      descricao,
+      finalizarTarefa
     }
   }
 });

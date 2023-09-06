@@ -23,7 +23,6 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useStore } from '@/store';
-import { ALTERA_PROJETO, ADICIONA_PROJETO, NOTIFICAR } from '@/store/tipo-mutacoes'
 import { TipoNotificacao } from '@/interfaces/INotificacao';
 import useNotificador from '@/hooks/notificador'
 import { CADASTRAR_PROJETO, ALTERAR_PROJETO } from "@/store/tipo-acoes"
