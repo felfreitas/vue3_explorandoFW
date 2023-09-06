@@ -8,10 +8,8 @@
             <span>Novo projeto</span>
         </router-link>
 
-        <Box v-if="projetosVazio" class="cssStyle"> Você não possui Tarefas cadastradas <span
-                class="has-text-weight-bold">:(</span>
-        </Box>
-        <table class="table is-fullwidth" v-if="!projetosVazio">
+      
+        <table class="table is-fullwidth" >
             <thead>
                 <tr>
                     <th>ID</th>
@@ -58,11 +56,6 @@ export default defineComponent({
             }
         };
     },
-    computed: {
-        projetosVazio(): boolean {
-            return this.projetos.length === 0;
-        }
-    },
     methods: {
         excluir(id: string) {
             this.store.dispatch(REMOVER_PROJETO, id);
@@ -75,8 +68,7 @@ export default defineComponent({
             projetos: computed(() => store.state.projeto.projetos),
             store
         }
-    },
-    components: { Box }
+    }
 })
 </script>
 

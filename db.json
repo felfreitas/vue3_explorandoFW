@@ -2,15 +2,15 @@
   "projetos": [
     {
       "id": 3,
-      "nome": "Estudar React.j 45"
+      "nome": "Estudar React.j 458"
     },
     {
       "nome": "estudar ali",
       "id": 4
     },
     {
-      "nome": "Deve ir",
-      "id": 5
+      "id": 5,
+      "nome": "Deve ir456"
     },
     {
       "nome": "não deve ir",
@@ -19,6 +19,10 @@
     {
       "nome": "teste de gravação",
       "id": 7
+    },
+    {
+      "nome": "aaaa",
+      "id": 8
     }
   ],
   "tarefas": [
@@ -42,7 +46,7 @@
     },
     {
       "duracaoEmSegundo": 3,
-      "descricao": "Teste 3001aaaa",
+      "descricao": "Refatorando composition API",
       "projeto": {
         "nome": "Deve ir",
         "id": 5

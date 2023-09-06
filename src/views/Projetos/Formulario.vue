@@ -36,22 +36,6 @@ export default defineComponent({
             type: String
         }
     },
-    // mounted() {
-    //     if (this.id) {
-    //         const projeto = this.store.state.projeto.projetos.find(proj => proj.id == this.id);
-
-    //         this.nomeDoProjeto = projeto?.nome || '';
-    //     }
-    // },
-    // data() {
-    //     return {
-    //         nomeDoProjeto: ''
-    //     };
-    // },
-    methods: {
-
-
-    },
     setup(props) {
         const router = useRouter();
 
@@ -97,8 +81,6 @@ export default defineComponent({
 
 
         return {
-            store,
-            notificar,
             nomeDoProjeto,
             salvar
         }
