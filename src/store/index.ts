@@ -8,12 +8,13 @@ import { OBTER_TAREFAS,CADASTRAR_TAREFA,ALTERAR_TAREFA } from "./tipo-acoes";
 
 import http from "@/http";
 import { EstadoProjeto, projeto } from "./modulos/projetos";
+import { EstadoTarefa, tarefa } from "./modulos/tarefas";
 
 export interface Estado {
     
-    tarefas: ITarefa[],
     notificacoes: INotificacao[],
-    projeto: EstadoProjeto
+    projeto: EstadoProjeto,
+    tarefa: EstadoTarefa
 }
 
 
@@ -25,28 +26,18 @@ export const key: InjectionKey<Store<Estado>> = Symbol()
 export const store = createStore<Estado>({
     state: {
     
-        tarefas: [],
         notificacoes: [],
         projeto:{
             projetos:[]
+        },
+        tarefa:{
+            tarefas:[]
         }
     },
     mutations: {
         //as mutações não podem ser assíncrona!!!
         //o mutations que controla o estado
-       
-        [DEFINIR_TAREFAS](state, tarefas: ITarefa[]) {
-            //recebe todos os projetos menos o que possui o id para deletar
-            state.tarefas = tarefas;
-        },
-        [ADICIONA_TAREFA](state, tarefa: ITarefa) {
            
-            state.tarefas.push(tarefa);
-        },
-        [ALTERA_TAREFA](state, tarefa: ITarefa) {
-            const index = state.tarefas.findIndex(taref => taref.id == tarefa.id)
-            state.tarefas[index] = tarefa
-        },
         [NOTIFICAR](state, novaNotificacao: INotificacao) {
             novaNotificacao.id = new Date().getTime();
             state.notificacoes.push(novaNotificacao)
@@ -60,23 +51,12 @@ export const store = createStore<Estado>({
     },
     actions: {
        
-        [OBTER_TAREFAS]({ commit }) {
-            http.get('tarefas')
-                .then(resposta => commit(DEFINIR_TAREFAS, resposta.data))
-        } ,
-        [CADASTRAR_TAREFA]({commit}, tarefa: ITarefa) {
-            return http.post('tarefas/', tarefa)
-                .then(resposta=>commit(ADICIONA_TAREFA, resposta.data))
-
-        },
-        [ALTERAR_TAREFA]({commit}, tarefa: ITarefa) {
-            return http.put(`tarefas/${tarefa.id}`, tarefa)
-                .then(() => commit(ALTERA_TAREFA,tarefa))
-
-        }
+      
     },
     modules:{
-        projeto
+        projeto,
+        tarefa
+
     }
 })
 

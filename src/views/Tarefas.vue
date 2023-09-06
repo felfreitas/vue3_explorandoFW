@@ -1,8 +1,8 @@
 <template>
     <Formulario @infoTarefa="salvarTarefa" />
     <div class="lista">
-        <Box v-if="listaEstaVazia"> Você não está muito produtivo hoje <span class="has-text-weight-bold">:(</span>
-        </Box>
+        <!-- <Box v-if="tarefas.length === 0"> Você não está muito produtivo hoje <span class="has-text-weight-bold">:(</span>
+        </Box> -->
         <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" @aoTarefaClicada="selecionarTarefa" />
 
 
@@ -46,18 +46,24 @@ import { OBTER_TAREFAS, CADASTRAR_TAREFA, OBTER_PROJETOS, ALTERAR_TAREFA } from 
 
 export default defineComponent({
     name: "App",
-    components: { Formulario, Tarefa, Box },
+    components: { Formulario, Tarefa
+        // , 
+        // Box
+     },
     data() {
         return {
             tarefaSelecionada: null as ITarefa | null
         };
     },
-    computed: {
-        listaEstaVazia(): boolean {
-            return this.tarefas.length == 0;
+    // computed: {
+    //     listaEstaVazia(): boolean {
+    //         console.log(this.tarefas.length ==0);
+            
+    //         return  true;
+    //         // return this.tarefas.length === 0;
 
-        },
-    },
+    //     },
+    // },
     mixins: [notificacaoMixin],
 
     methods: {
@@ -87,7 +93,7 @@ export default defineComponent({
         store.dispatch(OBTER_TAREFAS)
 
         return {
-            tarefas: computed(() => store.state.tarefas),
+            tarefas: computed(() => store.state.tarefa.tarefas),
             store
         }
     }
