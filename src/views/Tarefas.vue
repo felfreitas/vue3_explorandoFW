@@ -3,6 +3,15 @@
     <div class="lista">
         <!-- <Box v-if="tarefas.length === 0"> Você não está muito produtivo hoje <span class="has-text-weight-bold">:(</span>
         </Box> -->
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input" type="text" placeholder="Digite para filtrar" v-model="filtro">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-search"></i>
+                </span>
+
+            </p>
+        </div>
         <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" @aoTarefaClicada="selecionarTarefa" />
 
 
@@ -34,7 +43,7 @@
 </template>
   
 <script lang="ts">
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, watchEffect } from "vue";
 import Formulario from "../components/Formulario.vue";
 import Tarefa from "../components/Tarefa.vue";
 import ITarefa from "../interfaces/ITarefa";
@@ -45,55 +54,69 @@ import { OBTER_TAREFAS, CADASTRAR_TAREFA, OBTER_PROJETOS, ALTERAR_TAREFA } from 
 
 export default defineComponent({
     name: "App",
-    components: { Formulario, Tarefa
-     
-     },
-   
+    components: {
+        Formulario, Tarefa
+
+    },
+
     mixins: [notificacaoMixin],
 
     methods: {
-         salvarTarefa(tarefa: ITarefa): void {
+        salvarTarefa(tarefa: ITarefa): void {
             // console.log(tarefa);
             if (!tarefa?.projeto) {
                 //chamando um mixin
-               this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(', 'É necessário escolher um projeto!');
+                this.notificar(TipoNotificacao.ATENCAO, 'Ops... :(', 'É necessário escolher um projeto!');
                 return;
             }
-           this.store.dispatch(CADASTRAR_TAREFA, tarefa)
+            this.store.dispatch(CADASTRAR_TAREFA, tarefa)
         }
 
     },
     setup() {
         const store = useStore();
         const tarefaSelecionada = ref(null as ITarefa | null);
-        
+
         store.dispatch(OBTER_PROJETOS)
         store.dispatch(OBTER_TAREFAS)
+        
+        
+        
+        const filtro = ref("");
 
+        //se existir algum filtro vamos aplicar
+        // const tarefas = computed(() => store.state.tarefa.tarefas.filter((t) => !filtro.value || t.descricao.includes(filtro.value)))
+        
+        
         // metodos
-        
-        
-      const selecionarTarefa = (tarefa: ITarefa) => {
+        const selecionarTarefa = (tarefa: ITarefa) => {
             tarefaSelecionada.value = tarefa;
         }
-        
-        const fecharModal= () => {
+
+        const fecharModal = () => {
             tarefaSelecionada.value = null;
         }
-        
-       const  editandoTarefa = ()=>{
+
+        const editandoTarefa = () => {
             store.dispatch(ALTERAR_TAREFA, tarefaSelecionada.value)
-                .then(()=>fecharModal())
+                .then(() => fecharModal())
         }
 
+        watchEffect(()=>{
+            //fazer um dispatch para buscar na api para filtrar o que foi digitado
+            store.dispatch(OBTER_TAREFAS, filtro.value)
+            console.log(filtro.value);
+            
+        });
         return {
-            tarefas: computed(() => store.state.tarefa.tarefas),
+            tarefas: computed(()=> store.state.tarefa.tarefas),
             store,
             tarefaSelecionada,
             selecionarTarefa,
             fecharModal,
-            editandoTarefa
-        }
+            editandoTarefa,
+            filtro
+        };
     }
 });
 </script>

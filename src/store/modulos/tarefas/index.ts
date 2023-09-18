@@ -6,19 +6,19 @@ import { DEFINIR_TAREFAS, ADICIONA_TAREFA, ALTERA_TAREFA } from "@/store/tipo-mu
 import { Module } from "vuex";
 
 
-export interface EstadoTarefa{
+export interface EstadoTarefa {
     tarefas: ITarefa[]
 }
 
 
-export const tarefa: Module<EstadoTarefa,Estado> = {
-    mutations:{
+export const tarefa: Module<EstadoTarefa, Estado> = {
+    mutations: {
         [DEFINIR_TAREFAS](state, tarefas: ITarefa[]) {
             //recebe todos os projetos menos o que possui o id para deletar
             state.tarefas = tarefas;
         },
         [ADICIONA_TAREFA](state, tarefa: ITarefa) {
-           
+
             state.tarefas.push(tarefa);
         },
         [ALTERA_TAREFA](state, tarefa: ITarefa) {
@@ -26,19 +26,24 @@ export const tarefa: Module<EstadoTarefa,Estado> = {
             state.tarefas[index] = tarefa
         }
     },
-    actions:{
-        [OBTER_TAREFAS]({ commit }) {
-            http.get('tarefas')
+    actions: {
+        [OBTER_TAREFAS]({ commit }, filtro: string) {
+
+            let url = 'tarefas'
+            if (filtro) {
+                url += '?descricao=' + filtro
+            }
+            http.get(url)
                 .then(resposta => commit(DEFINIR_TAREFAS, resposta.data))
-        } ,
-        [CADASTRAR_TAREFA]({commit}, tarefa: ITarefa) {
+        },
+        [CADASTRAR_TAREFA]({ commit }, tarefa: ITarefa) {
             return http.post('tarefas/', tarefa)
-                .then(resposta=>commit(ADICIONA_TAREFA, resposta.data))
+                .then(resposta => commit(ADICIONA_TAREFA, resposta.data))
 
         },
-        [ALTERAR_TAREFA]({commit}, tarefa: ITarefa) {
+        [ALTERAR_TAREFA]({ commit }, tarefa: ITarefa) {
             return http.put(`tarefas/${tarefa.id}`, tarefa)
-                .then(() => commit(ALTERA_TAREFA,tarefa))
+                .then(() => commit(ALTERA_TAREFA, tarefa))
 
         }
     }

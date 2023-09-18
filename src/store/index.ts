@@ -1,12 +1,9 @@
-import ITarefa from "@/interfaces/ITarefa";
 import { createStore, Store, useStore as vuexUseStore } from "vuex";
 // import { Md5 } from 'ts-md5';
 import { InjectionKey } from "vue";
-import { NOTIFICAR, DEFINIR_TAREFAS, ADICIONA_TAREFA,ALTERA_TAREFA } from "./tipo-mutacoes";
+import { NOTIFICAR } from "./tipo-mutacoes";
 import { INotificacao } from "@/interfaces/INotificacao";
-import { OBTER_TAREFAS,CADASTRAR_TAREFA,ALTERAR_TAREFA } from "./tipo-acoes";
 
-import http from "@/http";
 import { EstadoProjeto, projeto } from "./modulos/projetos";
 import { EstadoTarefa, tarefa } from "./modulos/tarefas";
 

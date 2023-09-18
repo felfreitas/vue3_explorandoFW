@@ -29,7 +29,7 @@
     {
       "id": 1,
       "duracaoEmSegundos": 125,
-      "descricao": "Teste1256485",
+      "descricao": "Vue 3",
       "projeto": {
         "id": 3,
         "nome": "Estudar React.j 45"
@@ -37,7 +37,7 @@
     },
     {
       "duracaoEmSegundo": 2,
-      "descricao": "Teste 211561561651aaaaa",
+      "descricao": "React",
       "projeto": {
         "nome": "estudar ali",
         "id": 4
@@ -55,7 +55,7 @@
     },
     {
       "duracaoEmSegundo": 1,
-      "descricao": "Estudos ",
+      "descricao": "Json",
       "projeto": {
         "nome": "não deve ir",
         "id": 6
@@ -64,7 +64,7 @@
     },
     {
       "duracaoEmSegundo": 3,
-      "descricao": "teste pós refatoraçãoaaaaaa",
+      "descricao": "teste de sempre",
       "projeto": {
         "id": 3,
         "nome": "Estudar React.j 458"
